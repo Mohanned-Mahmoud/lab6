@@ -21,7 +21,12 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          if [ -f requirements.txt ] && [ -s requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            echo "No dependencies to install"
+          fi
 
       - name: Run unit tests
         run: python -m unittest discover
